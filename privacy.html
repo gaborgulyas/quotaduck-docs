@@ -16,36 +16,46 @@
     <article data-lang="hu">
       <p class="eyebrow">ADATKEZELÉSI TÁJÉKOZTATÓ · BŐVÍTMÉNY</p>
       <h1>Átlátható működés, helyben tárolt adatok.</h1>
-      <p class="lead">A QuotaDuck Chrome-bővítmény a bejelentkezett ChatGPT-fiók Codex/Work használati keretét jeleníti meg. Ez a leírás a bővítmény 1.2.0-s verziójának forráskódján alapul. Utolsó frissítés: 2026. szeptember 14.</p>
-      <h2>Milyen adatokhoz fér hozzá?</h2>
-      <p>A bővítmény a <code>chatgpt.com</code> oldalon aktív munkamenetből egy rövid életű hozzáférési tokent kér, majd ezzel a ChatGPT belső <code>/backend-api/wham/usage</code> végpontját hívja. A válaszból a használati százalékokat, a visszaállítás időpontjait és a csomag típusát dolgozza fel. A tokent és a fiókazonosítót nem tárolja el.</p>
+      <p class="lead">A QuotaDuck Chrome-bővítmény a bejelentkezett ChatGPT- vagy Claude-fiók használati keretét jeleníti meg. Ez a tájékoztató a bővítmény 1.3.3-as verziójára vonatkozik. Hatálybalépés és utolsó frissítés: 2026. szeptember 21.</p>
+      <h2>Milyen adatokat kezel?</h2>
+      <p>A bővítmény a <code>chatgpt.com</code> aktív munkamenetéből rövid életű hozzáférési tokent és fiókazonosítót dolgoz fel, majd lekéri a ChatGPT használati adatait. Claude esetén az aktív <code>claude.ai</code> munkamenethez tartozó szervezet azonosítóját és usage-adatait dolgozza fel. A használati adatok közé tartozhat a felhasznált százalék, a keret időablaka, a visszaállítás időpontja és a csomag típusa.</p>
+      <p>Ha a felhasználó bekapcsolja a „Minden oldalon” módot, a bővítmény helyben, átmenetileg kezeli a megnyitott HTTP/HTTPS-lapok URL-jeit annak eldöntéséhez, hogy hová helyezze el a panelt. Az oldalak tartalmát, a beszélgetéseket, a kattintásokat és a billentyűleütéseket nem olvassa és nem gyűjti.</p>
       <h2>Mi marad a böngészőben?</h2>
-      <p>A Chrome helyi tárhelyén (<code>chrome.storage.local</code>) a használati adatok legutóbbi sikeres összesítése, a lekérés ideje, a megjelenítési beállítások, valamint az esetleges hibaüzenet és annak időpontja tárolódik. A gyorsítótár és a beállítások a bővítmény adatainak törléséig maradnak meg; bármikor törölhetők a Chrome-ban.</p>
+      <p>A Chrome helyi tárhelyén (<code>chrome.storage.local</code>) a legutóbbi sikeres, összesített használati értékek, a lekérés ideje, a szolgáltató, a megjelenítési beállítások, valamint az esetleges hibaüzenet és annak időpontja tárolódik. Hozzáférési tokent, sütit, fiókazonosítót, szervezetazonosítót és lap-URL-t nem tárol. A helyi adatok a bővítmény adatainak törléséig maradnak meg, és a Chrome-ban bármikor törölhetők.</p>
       <h2>Hová küld adatot?</h2>
-      <p>A bővítmény kizárólag a ChatGPT saját végpontjait hívja a keret lekéréséhez, a böngészőben aktív bejelentkezés használatával. Nincs saját kiszolgálója, analitikája, reklámkövetése vagy harmadik félhez küldött adatfolyama. Nem tárol hozzáférési tokent, jelszót vagy beszélgetéstartalmat.</p>
+      <p>A bővítmény kizárólag a felhasználó által kiválasztott szolgáltató, vagyis a ChatGPT vagy a Claude saját HTTPS-végpontjait hívja a keret lekéréséhez. A fejlesztő nem üzemeltet adatfogadó szervert, és nincs analitika, reklámkövetés vagy független harmadik félhez továbbított adatfolyam.</p>
+      <h2>Korlátozott felhasználás</h2>
+      <p>Az adatokat kizárólag a bővítmény egyetlen céljához, a használati keret megjelenítéséhez használja. A QuotaDuck nem ad el felhasználói adatot, nem használja reklámozásra, profilalkotásra vagy hitelképesség megállapítására, és nem továbbítja az adatokat a Chrome Web Store szabályzata által engedélyezett eseteken kívül.</p>
       <h2>Milyen jogosultságokat használ?</h2>
-      <ul><li><strong>chatgpt.com / chat.openai.com:</strong> a használati adatok lekéréséhez és az oldalon megjelenő panelhez.</li><li><strong>storage:</strong> helyi gyorsítótár és beállítások.</li><li><strong>alarms:</strong> időzített frissítés.</li><li><strong>scripting:</strong> a lebegő panel megjelenítése a választott helyeken.</li><li><strong>Opcionális hozzáférés minden HTTP/HTTPS-oldalhoz:</strong> csak akkor kéri a Chrome, ha bekapcsolod a „Minden oldalon” módot. Ekkor a bővítmény a helyben tárolt összesített adatból panelt rajzol az oldalakra; az oldal tartalmát nem olvassa ki és nem küldi tovább.</li></ul>
+      <ul><li><strong>chatgpt.com / chat.openai.com / claude.ai:</strong> a használati adatok lekéréséhez és a panel megjelenítéséhez.</li><li><strong>cookies:</strong> Claude-nál kizárólag az aktív szervezetet jelölő <code>lastActiveOrg</code> süti kiolvasására; az értékét nem tárolja.</li><li><strong>storage:</strong> helyi gyorsítótár és beállítások.</li><li><strong>alarms:</strong> időzített frissítés.</li><li><strong>scripting:</strong> a csomagolt <code>content.js</code> segítségével megjeleníti a lebegő panelt.</li><li><strong>Opcionális hozzáférés minden HTTP/HTTPS-oldalhoz:</strong> csak a „Minden oldalon” mód bekapcsolásakor kéri. Az oldal tartalmát nem olvassa ki és nem továbbítja.</li></ul>
       <h2>Fontos technikai korlát</h2>
-      <p class="note">A <code>/backend-api/wham/usage</code> a ChatGPT nem dokumentált belső végpontja. Ha az OpenAI megváltoztatja, a keret kijelzése átmenetileg megszűnhet. A QuotaDuck független projekt, nem az OpenAI terméke és nem áll kapcsolatban az OpenAI-jal. A Codex és a ChatGPT nevek az OpenAI megjelölései.</p>
+      <p class="note">A használt ChatGPT- és Claude-végpontok nem dokumentált belső végpontok. Ha valamelyik szolgáltató megváltoztatja őket, a kijelzés átmenetileg megszűnhet. A QuotaDuck független projekt, nem áll kapcsolatban az OpenAI-jal vagy az Anthropic-kal.</p>
+      <h2>Kapcsolat</h2>
+      <p>Adatvédelmi kérdés esetén nyiss hibajegyet a <a href="https://github.com/gaborgulyas/quotaduck-docs/issues">nyilvános dokumentációs tárhelyen</a>.</p>
       <p><a href="./">← Vissza a kezdőlapra</a></p>
     </article>
     <article data-lang="en" hidden>
       <p class="eyebrow">PRIVACY INFORMATION · EXTENSION</p>
       <h1>Clear behavior. Local storage.</h1>
-      <p class="lead">The QuotaDuck Chrome extension displays the Codex/Work usage allowance of your signed-in ChatGPT account. This description is based on extension version 1.2.0. Last updated: September 14, 2026.</p>
-      <h2>What does the extension access?</h2>
-      <p>It requests a short-lived access token from your active session at <code>chatgpt.com</code>, then uses it to call ChatGPT's internal <code>/backend-api/wham/usage</code> endpoint. It processes the usage percentages, reset times and plan type in the response. It does not store the access token or account ID.</p>
+      <p class="lead">The QuotaDuck Chrome extension displays the usage allowance of your signed-in ChatGPT or Claude account. This policy applies to extension version 1.3.3. Effective and last updated: September 21, 2026.</p>
+      <h2>What data does the extension handle?</h2>
+      <p>For ChatGPT, the extension temporarily processes a short-lived access token and account ID from the active <code>chatgpt.com</code> session, then requests ChatGPT usage data. For Claude, it processes the organization identifier and usage data associated with the active <code>claude.ai</code> session. Usage data may include the percentage used, allowance window, reset time, and plan type.</p>
+      <p>If the user enables “Every site” mode, the extension locally and temporarily processes the URLs of open HTTP/HTTPS tabs to determine where to place the panel. It does not read or collect page contents, conversations, clicks, or keystrokes.</p>
       <h2>What stays in your browser?</h2>
-      <p>Chrome's local extension storage (<code>chrome.storage.local</code>) holds the latest successful summarized usage reading, its timestamp, your display preferences, and any error message and timestamp. The cache and preferences remain until you clear the extension's data; you can remove them in Chrome.</p>
+      <p>Chrome's local extension storage (<code>chrome.storage.local</code>) holds the latest successful summarized usage values, retrieval time, selected provider, display preferences, and any error message and timestamp. It does not store access tokens, cookies, account IDs, organization IDs, or tab URLs. Local data remains until the extension's data is cleared and can be removed at any time in Chrome.</p>
       <h2>Where is data sent?</h2>
-      <p>The extension only calls ChatGPT endpoints to read your allowance using your existing browser session. It has no independent server, analytics, ad tracking, or data transfer to a third party. It does not store access tokens, passwords, or conversation content.</p>
+      <p>The extension calls only the selected provider's own HTTPS endpoints—ChatGPT or Claude—to retrieve the allowance. The developer operates no data-collection server, and the extension contains no analytics, advertising tracker, or data flow to an unrelated third party.</p>
+      <h2>Limited use</h2>
+      <p>Data is used only for the extension's single purpose: displaying the user's usage allowance. QuotaDuck does not sell user data; use it for advertising, profiling, lending, or creditworthiness; or transfer it outside the use cases permitted by Chrome Web Store policy.</p>
       <h2>Which permissions does it use?</h2>
-      <ul><li><strong>chatgpt.com / chat.openai.com:</strong> to read the usage allowance and display the panel on ChatGPT.</li><li><strong>storage:</strong> local cache and settings.</li><li><strong>alarms:</strong> scheduled refresh.</li><li><strong>scripting:</strong> display the floating panel where you choose.</li><li><strong>Optional access to all HTTP/HTTPS sites:</strong> Chrome requests it only when you enable “Every site.” The extension then draws the panel using locally stored summarized data; it does not read or transmit the content of those pages.</li></ul>
+      <ul><li><strong>chatgpt.com / chat.openai.com / claude.ai:</strong> retrieve usage information and display the panel.</li><li><strong>cookies:</strong> only read Claude's <code>lastActiveOrg</code> cookie to identify the active organization; the value is not stored.</li><li><strong>storage:</strong> local cache and settings.</li><li><strong>alarms:</strong> scheduled refresh.</li><li><strong>scripting:</strong> display the floating panel using the packaged <code>content.js</code> file.</li><li><strong>Optional access to all HTTP/HTTPS sites:</strong> requested only when the user enables “Every site.” The extension does not read or transmit page content.</li></ul>
       <h2>Technical limitation</h2>
-      <p class="note">ChatGPT's <code>/backend-api/wham/usage</code> is an undocumented internal endpoint. If OpenAI changes it, usage display may temporarily stop working. QuotaDuck is an independent project, not an OpenAI product and not affiliated with OpenAI. Codex and ChatGPT are names used by OpenAI.</p>
+      <p class="note">The ChatGPT and Claude usage endpoints are undocumented internal endpoints. If either provider changes them, usage display may temporarily stop working. QuotaDuck is an independent project and is not affiliated with OpenAI or Anthropic.</p>
+      <h2>Contact</h2>
+      <p>For privacy questions, open an issue in the <a href="https://github.com/gaborgulyas/quotaduck-docs/issues">public documentation repository</a>.</p>
       <p><a href="./">← Back to home</a></p>
     </article>
   </main>
-  <footer class="wrap"><div class="brand"><img src="logo.svg" alt="" width="28" height="28"><span>QuotaDuck</span></div><p data-i18n="footer">Független projekt. Nem áll kapcsolatban az OpenAI-jal.</p><a href="./" data-i18n="home">Kezdőlap</a></footer>
+  <footer class="wrap"><div class="brand"><img src="logo.svg" alt="" width="28" height="28"><span>QuotaDuck</span></div><p data-i18n="footer">Független projekt. Nem áll kapcsolatban az OpenAI-jal vagy az Anthropic-kal.</p><a href="./" data-i18n="home">Kezdőlap</a></footer>
 </body>
 </html>
